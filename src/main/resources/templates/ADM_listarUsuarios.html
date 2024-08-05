@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuario List</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/filtro.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/tablaDashboard.css">
+</head>
+
+<body>
+
+    <div class="contenedor">
+        <nav>
+            <div class="sidebar-top">
+                <span class="expand-btn">
+                    <img src="/img/chevron.svg" alt="Chevron">
+                </span>
+                <img src="/img/egg solutions blanco.png" class="logo" alt="Laplace Logo">
+                <a href="/inicio">
+                    <h3 class="hide" style="white-space:nowrap;">Panel Administrativo</h3>
+                </a>
+            </div>
+            <div class="sidebar-links">
+                <ul>
+                    <li>
+                        <a href="/admin/usuarios" class="active" title="Portfolio link">
+                            <div class="icon">
+                                <img src="/img/portfolio.svg" title="Portfolio Icon">
+                            </div>
+                            <span class="link hide">Usuarios</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/proveedores" title="Analytics link">
+                            <div class="icon">
+                                <img src="/img/analytics.svg" title="Analytics Icon">
+                            </div>
+                            <span class="link hide">Proveedores</span>
+                        </a>
+                    </li>
+                    <!-- <li>
+                        <a href="#dashboard" title="Performance link">
+                            <div class="icon">
+                                <img src="/img/dashboard.svg" title="Performance Icon">
+                            </div>
+                            <span class="link hide">Performance</span>
+                        </a>
+                    </li> -->
+                    <li>
+                        <a href="/admin/comentarios" title="Reports Link">
+                            <div class="icon">
+                                <img src="/img/reports.svg" title="Reports Icon">
+                            </div>
+                            <span class="link hide">Comentarios</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/logout" title="Reports Link">
+                            <div class="icon">
+                                <img src="/img/desconectar.png" title="Reports Icon">
+                            </div>
+                            <span class="link hide">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="contenedor2">
+            <div class="input-container">
+                <span class="titulo">
+                    Listado de Usuarios
+                </span>
+            </div>
+            <div class="tabla-filtro">
+                <input type="text" id="filtro" placeholder="Buscar...">
+                <table class="zigzag">
+                    <thead>
+                        <tr>
+                            <th class="header">Nombre</th>
+                            <th class="header">Apellido</th>
+                            <th class="header">e-mail</th>
+                            <th class="header">Teléfono</th>
+                            <th class="header">Documento</th>
+                            <th class="header" style="width: auto">Foto Perfil</th>
+                            <th class="header">Habilitar</th>
+                            <th class="header">Inhabilitar</th>
+                            <th class="header">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-body">
+                        <tr th:each="usuario : ${usuarios}" th:if="${usuario.alta}">
+                            <td data-label="Nombre" scope="row" th:text="${usuario.nombre}">Nombre</td>
+                            <td data-label="Apellido" th:text="${usuario.apellido}">Apellido</td>
+                            <td data-label="e-mail" th:text="${usuario.email}">e-mail</td>
+                            <td data-label="Teléfono" th:text="${usuario.contactoTelefonico}">Teléfono</td>
+                            <td data-label="Documento" th:text="${usuario.documento}">Documento</td>
+                            <td data-label=">Foto Perfil">
+                                <div class=" col-md-7 ">
+                                    <img th:src="@{'/usuario/imagen/' + ${usuario.id}}" class="float-left ml-1"
+                                        style="width: 100px;">
+                                </div>
+                            </td>
+                            <td data-label="Habilitar">
+                                <button class="botond desactivar"
+                                    th:onclick="|window.location.href='/usuario/darDeAlta/' + ${usuario.id}|"
+                                    th:disabled="${usuario.registro == true}">
+                                    <span class="btn-txtd">Activar</span>
+                                </button>
+                            </td>
+                            <td data-label="Inhabilitar">
+                                <button class="botond desactivar"
+                                    th:onclick="|window.location.href='/usuario/darDeBaja/' + ${usuario.id}|"
+                                    th:disabled="${usuario.registro == false}">
+                                    <span class="btn-txtd">Desactivar</span>
+                                </button>
+                            </td>
+                            <td data-label="Eliminar">
+                                <a th:href="@{'/usuario/eliminar/' + ${usuario.id}}"
+                                    th:disabled="${usuario.alta == false}">
+                                    <button class="botone eliminar">
+                                        <span class="btn-txte">Eliminar</span>
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="tabla-mobile">
+                    <div class="fila" th:each="usuario : ${usuarios}" th:if="${usuario.alta}">
+                        <div class="columna">
+                            <div class="header">Nombre</div>
+                            <div class="contenido" th:text="${usuario.nombre}"></div>
+                        </div>
+                        <div class="columna">
+                            <div class="header">Apellido</div>
+                            <div class="contenido" th:text="${usuario.apellido}"></div>
+                        </div>
+                        <div class="columna">
+                            <div class="header">e-mail</div>
+                            <div class="contenido" th:text="${usuario.email}"></div>
+                        </div>
+                        <div class="columna">
+                            <div class="header">Teléfono</div>
+                            <div class="contenido" th:text="${usuario.contactoTelefonico}"></div>
+                        </div>
+                        <div class="columna">
+                            <div class="header">Documento</div>
+                            <div class="contenido" th:text="${usuario.documento}"></div>
+                        </div>
+                        <div class="columna">
+                            <div class="header">Foto Perfil</div>
+                            <div class="contenido">
+                                <div class="col-md-7">
+                                    <img th:src="@{'/usuario/imagen/' + ${usuario.id}}" class="float-left ml-1"
+                                        style="width: 100px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="columna">
+                            <div class="header">Habilitar</div>
+                            <div class="contenido">
+                                <button class="botond desactivar"
+                                    th:onclick="|window.location.href='/usuario/darDeAlta/' + ${usuario.id}|"
+                                    th:disabled="${usuario.registro == true}">
+                                    <span class="btn-txtd">Activar</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="columna">
+                            <div class="header">Inhabilitar</div>
+                            <div class="contenido">
+                                <button class="botond desactivar"
+                                    th:onclick="|window.location.href='/usuario/darDeBaja/' + ${usuario.id}|"
+                                    th:disabled="${usuario.registro == false}">
+                                    <span class="btn-txtd">Desactivar</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="columna">
+                            <div class="header">Eliminar</div>
+                            <div class="contenido">
+                                <a th:href="@{'/usuario/eliminar/' + ${usuario.id}}"
+                                    th:disabled="${usuario.alta == false}">
+                                    <button class="botone eliminar">
+                                        <span class="btn-txte">Eliminar</span>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="/js/filtro.js"></script>
+    <script src="/js/sidebar.js"></script>
+</body>
+
+</html>

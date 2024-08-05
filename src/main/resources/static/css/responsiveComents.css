@@ -1,0 +1,110 @@
+#comentarios {
+    margin-top: 20px; /* Espacio entre la tabla y la sección de comentarios */
+    
+  }
+  
+  .lista-comentarios {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 40px;
+  }
+  
+  /* Estilos para cada comentario */
+  .comentario {
+    margin-top: 20px;
+    margin-left: 50px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 10px;
+  }
+  
+  /* Estilos para la información del usuario */
+  .usuario-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para la foto del usuario */
+  .usuario-info img {
+    width: 60px; /* Ajusta el tamaño según sea necesario */
+    height: 60px; /* Ajusta el tamaño según sea necesario */
+    border-radius: 50%; /* Para mostrar la imagen redonda */
+    margin-right: 10px;
+  }
+  
+  /* Estilos para el nombre del usuario */
+  .nombre-usuario {
+    font-weight: bold;
+  }
+  
+  /* Estilos para el contenido del comentario */
+  .contenido {
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para las opciones del comentario */
+  .opciones {
+    display: flex;
+  }
+  
+  /* Estilos para los botones de "Me gusta" y "Denunciar" */
+  .btn-me-gusta,
+  .btn-denunciar {
+    margin-right: 10px;
+    background-color: #ff0b34; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  /* Estilos para los botones de "Me gusta" y "Denunciar" al pasar el mouse */
+  .btn-me-gusta:hover,
+  .btn-denunciar:hover {
+    background-color: #b30000; /* Color de fondo al pasar el mouse */
+  }
+
+  @media (max-width: 768px) {
+    .usuario-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .usuario-info img {
+        margin-bottom: 10px;
+    }
+
+    .opciones {
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .input-container {
+        margin-left: 10px;
+    }
+    
+    .comentario {
+        padding: 10px;
+        margin-left: 10px;
+    }
+
+    .usuario-info img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .nombre-usuario {
+        font-size: 16px;
+    }
+
+    .contenido {
+        font-size: 14px;
+    }
+
+    .btn-denunciar {
+        padding: 8px 12px;
+    }
+}

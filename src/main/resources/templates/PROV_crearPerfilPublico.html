@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear perfil publico</title>
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/slider.css">
+    <link rel="stylesheet" href="/css/responsiveComents.css">
+    <link rel="stylesheet" href="/css/tablaUsuario.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+</head>
+
+<body>
+    <div>
+        <div class="perfil">
+
+            <br><br>
+
+            <div>
+
+                <div th:if="${perfilProveedor != null and perfilProveedor.descripcion != null}" class="columnaNosotros">
+                    <h2 class="fancy" style="--w: 50vw;--c: #f73859;--b:4px;--g: 40px">Información del proveedor</h2>
+                    <br>
+                    <div style="font-size: 22px;">
+                        <p>Nombre: <span th:text="${proveedor.nombre + ' ' + proveedor.apellido}"></span></p>
+                        <p>Telefono: <span th:text="${proveedor.contactoTelefonico}"></span></p>
+                        <p class="contenido" th:text="${perfilProveedor.descripcion}"></p>
+                        <div sec:authorize="!hasRole('ROLE_PROVEEDOR')">
+                            <button class="botonContrato" th:data-proveedorid="${proveedor.id}"
+                                onclick="contratarProveedor(this)">
+                                <span class="botonContrato">Contratar</span>
+                            </button>                           
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <div th:if="${perfilProveedor == null or perfilProveedor.descripcion == null}" class="columnaNosotros"
+                    style="font-size: 22px;">
+                    <p>Este proveedor aún no ha creado su perfil público.</p>
+                    <br>
+                    <p>Nombre: <span th:text="${proveedor.nombre + ' ' + proveedor.apellido}"></span></p>
+                    <p>Telefono: <span th:text="${proveedor.contactoTelefonico}"></span></p>
+                    <div sec:authorize="!hasRole('ROLE_PROVEEDOR')">
+                        <button class="botonContrato" th:data-proveedorid="${proveedor.id}"
+                            onclick="contratarProveedor(this)">
+                            <span class="botonContrato">Contratar</span>
+                        </button>                           
+                    </div>
+                </div>
+
+                <br>
+
+                <div>
+                    <h2 class="fancy" style="--w: 50vw;--c: #f73859;--b:4px;--g: 40px">Imagenes de trabajos realizados
+                    </h2>
+                    <div th:if="${#lists.isEmpty(imagenes)}" style="font-size: 22px;">
+                        <p>No hay imágenes disponibles.</p>
+                    </div>
+                    <br>
+                    <div class="slider">
+                        <div th:each="imagen : ${imagenes}">
+                            <img th:src="@{'/imagen/' + ${imagen.id}}" alt="Imagen del perfil" />
+                            <form th:if="${#httpServletRequest.remoteUser != null}"
+                                th:action="@{/perfilProveedor/eliminarImagen}" method="post"
+                                sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_PROVEEDOR')">
+                                <input type="hidden" name="imagenId" th:value="${imagen.id}" />
+                                <button type="submit">Eliminar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="fancy" style="--w: 50vw;--c: #f73859;--b:4px;--g: 40px">Comentarios de los Usuarios</h2>
+                <div id="comentarios">
+                    <div>
+                        <ul class="lista-comentarios">
+
+                            <li class="comentario" th:each="comentario : ${comentarios}"
+                                th:if="${comentario.estado.name() == 'VISIBLE' or comentario.estado.name() == 'DESTACADO'}">
+                                <div class="usuario-info">
+
+                                    <img th:src="@{'/usuario/imagen/' + ${comentario.contrato.usuario.id}}"
+                                        alt="Foto de perfil del usuario">
+
+                                    <span class="nombre-usuario"
+                                        th:text="${comentario.contrato.usuario.nombre + ' ' + comentario.contrato.usuario.apellido}">Nombre
+                                        Apellido</span>
+                                </div>
+
+                                <p class="contenido" th:text="${comentario.comentario}">Comentario 1</p>
+                                <div class="opciones">
+                                    <button
+                                        th:onclick="|window.location.href='/comentarios/denunciar/' + ${comentario.id}|"
+                                        class="btn-denunciar">Denunciar</button>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div th:if="${#httpServletRequest.remoteUser != null}" class="formularioPerfil"
+                sec:authorize="hasRole('ROLE_PROVEEDOR')">
+                <form
+                    th:action="@{${perfilProveedor == null} ? '/perfilProveedor/creacionPerfilPublico' : '/perfilProveedor/modificacionPerfilPublico'}"
+                    method="POST" enctype="multipart/form-data">
+
+                    <label for="descripcion">Descripción:</label><br>
+                    <textarea id="descripcion" name="descripcion" rows="4" cols="50"
+                        th:text="${perfilProveedor != null} ? ${perfilProveedor.descripcion} : ''"></textarea><br><br>
+
+                    <label for="imagenes">Fotos de trabajos:</label><br>
+                    <input type="file" name="imagenes" id="imagenes" multiple><br><br>
+
+                    <input type="submit" th:text="${perfilProveedor == null ? 'Crear Perfil' : 'Actualizar Perfil'}">
+                </form>
+                <br>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div th:replace="/fragments/footer:: div"></div>
+    <script>
+        function contratarProveedor(button) {
+            var proveedorId = button.getAttribute('data-proveedorid');
+            window.location.href = "/contrato/solicitar?proveedorId=" + proveedorId;
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="/js/perfilSlider.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROV Lista proveedor</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/filtro.css">
+    <link rel="stylesheet" href="/css/tablaDashboard.css">
+    <link rel="stylesheet" href="/css/responsiveComents.css">
+</head>
+
+<body>
+    <div class="contenedor">
+        <nav>
+            <div class="sidebar-top">
+                <span class="expand-btn">
+                    <img src="/img/chevron.svg" alt="Chevron">
+                </span>
+                <img src="/img/egg solutions blanco.png" class="logo" alt="Laplace Logo">
+                <a href="/inicio">
+                    <h3 class="hide" style="white-space:nowrap;">Panel Administrativo</h3>
+                </a>
+            </div>
+            <div class="sidebar-links">
+                <ul>
+                    <li>
+                        <a th:href="@{'/proveedor/modificarPerfil/' + ${proveedor.id}}" class="active"
+                            title="Portfolio link">
+                            <div class="icon">
+                                <img src="/img/portfolio.svg" title="Portfolio Icon">
+                            </div>
+                            <span class="link hide">Perfil</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#analytics" title="Analytics link">
+                            <div class="icon">
+                                <img src="/img/analytics.svg" title="Analytics Icon">
+                            </div>
+                            <span class="link hide">Contratos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#comentarios" title="Performance link">
+                            <div class="icon">
+                                <img src="/img/dashboard.svg" title="Performance Icon">
+                            </div>
+                            <span class="link hide">Comentarios</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{'/perfilProveedor/verPerfilPublico/' + ${proveedor.id}}" title="Performance link">
+                            <div class="icon">
+                                <img src="/img/dashboard.svg" title="Performance Icon">
+                            </div>
+                            <span class="link hide">Perfil público</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/logout" title="Reports Link">
+                            <div class="icon">
+                                <img src="/img/desconectar.png" title="Reports Icon">
+                            </div>
+                            <span class="link hide">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="contenedor2">
+            <div class="input-container">
+                <span class="titulo">
+                    Mis Contratos
+                </span>
+            </div>
+            <br><br>
+            <div class="tabla-filtro">
+                <table class="zigzag">
+                    <thead>
+                        <tr>
+                            <th class="header">Nº de contrato</th>
+                            <th class="header">Nombre Cliente</th>
+                            <th class="header">Barrio</th>
+                            <th class="header">Dirección</th>
+                            <th class="header">Telefono</th>
+                            <th class="header">Aceptar</th><!--BLOQUEAR BOTÓN UNA VEZ UTILIZADO-->
+                            <th class="header">Rechazar</th><!--SE BLOQUEA UNA VEZ ACEPTADO-->
+                            <th class="header">Finalizar</th><!--DESHABILITADO HASTA QUE LO ACEPTE-->
+                            <th class="header">Calificación</th>
+                        </tr>
+                    </thead>
+                    <tbody th:each="contrato : ${contratos}" th:if="${contrato.estado.name() != 'CANCELADO'}"
+                        style="height: 1vh; width: 1px">
+                        <tr>
+                            <td th:text="${contrato.id}" scope="row">ID</td>
+                            <td th:text="${contrato.usuario.nombre}">Nombre cliente</td>
+                            <td th:text="${contrato.barrio}">Barrio</td>
+                            <td th:text="${contrato.direccionDelContrato}">Dirección</td>
+                            <td th:text="${contrato.usuario.contactoTelefonico}">Telefono</td>
+                            <td>
+                                <button class="botonm"
+                                    th:disabled="${contrato.estado.name() == 'EN_PROCESO' or contrato.estado.name() == 'CANCELADO' or contrato.estado.name() == 'FINALIZADO' or contrato.estado.name() == 'CALIFICADO'}"
+                                    th:onclick="|window.location.href='/contrato/aceptar/' + ${contrato.id}|">
+                                    <span class="btn-txt">Aceptar</span>
+                                </button>
+                            </td>
+                            <td>
+                                <button class="botond"
+                                    th:disabled="${contrato.estado.name() == 'EN_PROCESO' or contrato.estado.name() == 'CANCELADO' or contrato.estado.name() == 'FINALIZADO' or contrato.estado.name() == 'CALIFICADO'}"
+                                    th:onclick="|window.location.href='/contrato/cancelar/' + ${contrato.id}|">
+                                    <span class="btn-txtd">Rechazar</span>
+                                </button>
+                            </td>
+                            <td>
+                                <form th:action="@{/contrato/finalizar}" method="POST">
+                                    <input type="hidden" name="id" th:value="${contrato.id}" />
+                                    <input class="fechas" id="fechaCulminacion" type="hidden" name="fecha_culminacion"
+                                        required />
+                                    <button class="botone"
+                                        th:disabled="${contrato.estado.name() == 'FINALIZADO' or contrato.estado.name() == 'CANCELADO' or contrato.estado.name() == 'PENDIENTE' or contrato.estado.name() == 'CALIFICADO'}">
+                                        <span class="btn-txte">Finalizar</span>
+                                    </button>
+                                </form>
+                            </td>
+                            <td th:text="${contrato.calificacion}">Calificación</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tabla-mobile">
+                <div class="fila" th:each="contrato : ${contratos}" th:if="${contrato.estado.name() != 'CANCELADO'}">
+                    <div class="columna">
+                        <div class="header">id</div>
+                        <div class="contenido" th:text="${contrato.id}"></div>
+                    </div>
+                    <div class="columna">
+                        <div class="header">Nombre Cliente</div>
+                        <div class="contenido" th:text="${contrato.usuario.nombre}"></div>
+                    </div>
+                    <div class="columna">
+                        <div class="header">Barrio</div>
+                        <div class="contenido" th:text="${contrato.barrio}"></div>
+                    </div>
+                    <div class="columna">
+                        <div class="header">Direccion</div>
+                        <div class="contenido" th:text="${contrato.direccionDelContrato}"></div>
+                    </div>
+                    <div class="columna">
+                        <div class="header">Teléfono</div>
+                        <div class="contenido" th:text="${contrato.usuario.contactoTelefonico}"></div>
+                    </div>
+                    <div class="columna">
+                        <div class="header">Aceptar</div>
+                        <div class="contenido">
+                            <button class="botonm"
+                                th:disabled="${contrato.estado.name() == 'EN_PROCESO' or contrato.estado.name() == 'CANCELADO' or contrato.estado.name() == 'FINALIZADO' or contrato.estado.name() == 'CALIFICADO'}"
+                                th:onclick="|window.location.href='/contrato/aceptar/' + ${contrato.id}|">
+                                <span class="btn-txt">Aceptar</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="columna">
+                        <div class="header">Rechazar</div>
+                        <div class="contenido">
+                            <button class="botond"
+                                th:disabled="${contrato.estado.name() == 'EN_PROCESO' or contrato.estado.name() == 'CANCELADO' or contrato.estado.name() == 'FINALIZADO' or contrato.estado.name() == 'CALIFICADO'}"
+                                th:onclick="|window.location.href='/contrato/cancelar/' + ${contrato.id}|">
+                                <span class="btn-txtd">Rechazar</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="columna">
+                        <div class="header">Finalizar</div>
+                        <div class="contenido">
+                            <form th:action="@{/contrato/finalizar}" method="POST">
+                                <input type="hidden" name="id" th:value="${contrato.id}" />
+                                <input class="fechas" id="fechaCulminacion" type="hidden" name="fecha_culminacion"
+                                    required />
+                                <button class="botone"
+                                    th:disabled="${contrato.estado.name() == 'FINALIZADO' or contrato.estado.name() == 'CANCELADO' or contrato.estado.name() == 'PENDIENTE' or contrato.estado.name() == 'CALIFICADO'}">
+                                    <span class="btn-txte">Finalizar</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="columna">
+                        <div class="header">Calificación</div>
+                        <div class="contenido" th:text="${contrato.calificacion}"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="comentarios">
+                <div class="input-container">
+                    <span class="titulo">Comentarios de los usuarios</span>
+                </div>
+                <div>
+                    <ul class="lista-comentarios">
+
+                        <li class="comentario" th:each="comentario : ${comentarios}"
+                            th:if="${comentario.estado.name() == 'VISIBLE'}">
+                            <div class="usuario-info">
+
+                                <img th:src="@{'/usuario/imagen/' + ${comentario.contrato.usuario.id}}"
+                                    alt="Foto de perfil del usuario">
+
+                                <span class="nombre-usuario"
+                                    th:text="${comentario.contrato.usuario.nombre + ' ' + comentario.contrato.usuario.apellido}">Nombre
+                                    Apellido</span>
+                            </div>
+
+                            <p class="contenido" th:text="${comentario.comentario}">Comentario 1</p>
+                            <div class="opciones">
+                                <button th:onclick="|window.location.href='/comentarios/denunciar/' + ${comentario.id}|"
+                                    class="btn-denunciar">Denunciar</button>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <script src="./js/sidebar.js"></script>
+    <script src="./js/fechaCulminacion.js"></script>
+</body>
+
+</html>

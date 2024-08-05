@@ -1,0 +1,677 @@
+table {
+  font-family: sans-serif;
+  font-size: 20px;
+  max-height: 30px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+table th,
+table td {
+  padding: 0.2em 0.2em;
+  text-align: center;
+  width: auto;
+}
+
+table th:nth-child(2),
+table td:nth-child(2) {
+  text-align: center;
+}
+
+table td {
+  background-color: #a3a3a3;
+  width: auto;
+}
+
+table th {
+  background-color: #2e4057;
+  color: #fff;
+  width: auto;
+}
+
+.zigzag {
+  border-collapse: separate;
+  border-spacing: 0.2em 0.4em;
+  margin: 100px 20px 300px 20px;
+  width: auto;
+  background-color: #b7c9e5;
+}
+
+.zigzag tbody tr:nth-child(odd) {
+  transform: rotate(0deg);
+}
+
+.zigzag thead tr,
+.zigzag tbody tr:nth-child(even) {
+  transform: rotate(-0deg);
+}
+
+
+
+.botonm {
+  padding: 5px 10px;
+  border-radius: 50px;
+  border: 0;
+  background-color: #031c30;
+  box-shadow: #b7c9e5;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 13px;
+  transition: all .5s ease;
+  color: #b7c9e5;
+}
+
+.botonm:hover {
+  background-color: lightgreen;
+  color: #031c30;
+  box-shadow: lightgreen;
+}
+
+.botonm:active {
+  background-color: lightgreen;
+  color: #031c30;
+  box-shadow: lightgreen;
+  transform: translateY(10px);
+  transition: 100ms;
+}
+
+
+.botond {
+  padding: 5px 10px;
+  border-radius: 50px;
+  border: 0;
+  background-color: #031c30;
+  box-shadow: #b7c9e5;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 13px;
+  transition: all .5s ease;
+  color: #b7c9e5;
+}
+
+.botond:hover {
+  background-color: lightsalmon;
+  color: #031c30;
+  box-shadow: lightsalmon;
+}
+
+.botond:active {
+  background-color: lightsalmon;
+  color: #031c30;
+  box-shadow: lightsalmon;
+  transform: translateY(10px);
+  transition: 100ms;
+}
+
+
+.botond:disabled {
+  background-color: #888;
+  /* Color de fondo original */
+  color: #b7c9e5;
+  /* Color de texto original */
+  box-shadow: none;
+  /* Sombra original */
+  cursor: not-allowed;
+  /* Cambia el cursor a indicar que no está permitida la acción */
+}
+
+.botond:disabled:hover {
+  background-color: #888;
+  /* Mantiene el color de fondo original al pasar el mouse */
+  color: #b7c9e5;
+  /* Mantiene el color del texto original al pasar el mouse */
+  box-shadow: none;
+  /* Mantiene la sombra original al pasar el mouse */
+}
+
+.botond:disabled:active {
+  /* Elimina o modifica los estilos para el estado active de botones deshabilitados */
+  transform: none;
+  /* Elimina la transformación */
+}
+
+
+.botone {
+  padding: 5px 10px;
+  border-radius: 50px;
+  border: 0;
+  background-color: #031c30;
+  box-shadow: #b7c9e5;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 13px;
+  transition: all .5s ease;
+  color: #b7c9e5;
+}
+
+.botone:hover {
+  background-color: rgb(219, 91, 91);
+  color: #031c30;
+  box-shadow: rgb(219, 91, 91);
+}
+
+.botone:active {
+  background-color: rgb(219, 91, 91);
+  color: #031c30;
+  box-shadow: rgb(219, 91, 91);
+  transform: translateY(10px);
+  transition: 100ms;
+}
+
+.botonContrato {
+  padding: 5px 10px;
+  border-radius: 50px;
+  border: 0;
+  background-color: #031c30;
+  box-shadow: #b7c9e5;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 13px;
+  transition: all .5s ease;
+  color: #b7c9e5;
+}
+
+.botonContrato:hover {
+  background-color: lightgreen;
+  color: #031c30;
+  box-shadow: lightgreen;
+}
+
+.botonContrato:active {
+  background-color: lightgreen;
+  color: #031c30;
+  box-shadow: lightgreen;
+  transform: translateY(10px);
+  transition: 100ms;
+}
+
+.table-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: -50px;
+  margin-bottom: -50px;
+
+}
+
+@media all and (width <=935px) {
+  .table-container {
+    overflow-x: scroll;
+  }
+}
+
+/* .rating {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 0 4px;
+    height: 40px;
+  }
+  
+  .rating-button {
+    appearance: none;
+    background: none;
+    outline: none;
+    border: none;
+    padding: 0;
+    height: 100%;
+    cursor: pointer;
+    --transition-delay: 0s;
+  }
+  
+  .rating--animatable .rating-button {
+    transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1) transform;
+  }
+  
+  .rating-button:active {
+    transform: scale(0.8);
+    color: yellow;
+  }
+  
+  .rating-button--active:active {
+    transform: scale(1.1);
+    color: yellow;
+  }
+  
+  .star {
+    transform: scale(0.5) rotate(0deg);
+    height: 100%;
+    color: var(--off-color);
+  }
+  
+  .rating--animatable .star {
+    transition: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) all;
+    transition-delay: var(--transition-delay);
+    
+  }
+  
+  .rating-button--active .star {
+    transform: scale(0.9) rotate(360deg);
+    color: var(--on-color);
+    color: yellow;
+  } */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 10px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+
+}
+
+/* @media screen and (max-width: 700px) {
+  .modal-content {
+    width: 90%;
+    padding: 5px;
+  }
+
+  .emergente-calificacion {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tablaCalificacion {
+    margin-top: 20px;
+  }
+
+  .table-container-calificacion {
+    order: 2;
+  }
+
+  .table-container-calificacion,
+  textarea {
+    width: 100%;
+    margin-top: 20px;
+  }
+} */
+
+.table-container-calificacion {
+  width: 100%;
+}
+
+.tablaCalificacion {
+  width: 100%;
+  max-width: 100%;
+  align-items: center;
+  padding: 10px;
+}
+
+.openModalBtn {
+  padding: 5px 10px;
+  border-radius: 50px;
+  border: 0;
+  background-color: #031c30;
+  box-shadow: #b7c9e5;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 13px;
+  transition: all .5s ease;
+  color: #b7c9e5;
+}
+
+.openModalBtn:hover {
+  background-color: rgb(219, 91, 91);
+  color: #031c30;
+  box-shadow: rgb(219, 91, 91);
+}
+
+.openModalBtn:active {
+  background-color: rgb(219, 91, 91);
+  color: #031c30;
+  box-shadow: rgb(219, 91, 91);
+  transform: translateY(10px);
+  transition: 100ms;
+}
+
+.openModalBtn:disabled {
+  background-color: #888;
+  /* Cambia el color de fondo a gris para botones deshabilitados */
+  color: #b7c9e5;
+  /* Mantiene el color del texto */
+  box-shadow: none;
+  /* Elimina la sombra */
+  cursor: not-allowed;
+  /* Cursor not-allowed para indicar que el botón está deshabilitado */
+}
+
+.openModalBtn:disabled:hover {
+  /* Mismos estilos que #openModal:disabled para mantener la consistencia al pasar el mouse */
+  background-color: #888;
+  color: #b7c9e5;
+  box-shadow: none;
+}
+
+.openModalBtn:disabled:active {
+  /* Elimina o modifica los estilos para el estado active de botones deshabilitados */
+  transform: none;
+  /* Elimina la transformación */
+}
+
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+.rating {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 0.2rem;
+  --stroke: #666;
+  --fill: #ffc73a;
+}
+
+.rating input {
+  /* appearance: unset; */
+  appearance: none;
+}
+
+.rating label {
+  cursor: pointer;
+}
+
+.rating svg {
+  width: 3rem;
+  height: 3rem;
+  overflow: visible;
+  fill: transparent;
+  stroke: var(--stroke);
+  stroke-linejoin: bevel;
+  stroke-dasharray: 12;
+  animation: idle 4s linear infinite;
+  transition: stroke 0.2s, fill 0.5s;
+}
+
+
+
+/* @media screen and (max-width: 400px) {
+  .rating svg {
+    width: 1.5rem; 
+    height: 1.5rem;
+  }
+}
+
+@keyframes idle {
+  from {
+    stroke-dashoffset: 24;
+  }
+} */
+
+.rating label:hover svg {
+  stroke: var(--fill);
+}
+
+.rating input:checked~label svg {
+  transition: 0s;
+  animation: idle 4s linear infinite, yippee 0.75s backwards;
+  fill: var(--fill);
+  stroke: var(--fill);
+  stroke-opacity: 0;
+  stroke-dasharray: 0;
+  stroke-linejoin: miter;
+  stroke-width: 8px;
+}
+
+#myModalMobile {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+#myModalMobile .modal-content {
+  background-color: #888;
+  margin: 10% auto;
+  padding: 10px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+}
+
+#myModalMobile .modal-body {
+  padding: 10px;
+  background-color: #fff;
+}
+
+@media screen and (max-width: 700px) {
+  #myModalMobile .modal-content {
+    width: 90%;
+    max-width: 100%;
+  }
+}
+
+#myModalMobile .form-group {
+  margin-bottom: 15px;
+}
+
+#myModalMobile .labelResponsive {
+    font-weight: bold;
+    background-color: #031c30;
+    display: block;
+    margin-bottom: 5px;
+    color:#fff;
+}
+
+
+
+#myModalMobile .rating {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  gap: 0.2rem;
+  --stroke: #666;
+  --fill: #ffc73a;
+}
+
+#myModalMobile .rating input {
+  appearance: none;
+}
+
+#myModalMobile .rating label {
+  cursor: pointer;
+}
+
+#myModalMobile .rating svg {
+  width: 3rem;
+  height: 3rem;
+  fill: transparent;
+  stroke: var(--stroke);
+  stroke-linejoin: bevel;
+  stroke-dasharray: 12;
+  animation: idle 4s linear infinite;
+  transition: stroke 0.2s, fill 0.5s;
+}
+
+#myModalMobile .rating input:checked ~ label svg,
+#myModalMobile .rating input:checked ~ label ~ svg {
+    fill: var(--fill, #ffc73a);
+    stroke: var(--fill, #ffc73a);
+}
+
+#myModalMobile .rating input:checked + label svg {
+    animation: none;
+}
+
+
+@keyframes yippee {
+  0% {
+    transform: scale(1);
+    fill: var(--fill);
+    fill-opacity: 0;
+    stroke-opacity: 1;
+    stroke: var(--stroke);
+    stroke-dasharray: 10;
+    stroke-width: 1px;
+    stroke-linejoin: bevel;
+  }
+
+  30% {
+    transform: scale(0);
+    fill: var(--fill);
+    fill-opacity: 0;
+    stroke-opacity: 1;
+    stroke: var(--stroke);
+    stroke-dasharray: 10;
+    stroke-width: 1px;
+    stroke-linejoin: bevel;
+  }
+
+  30.1% {
+    stroke: var(--fill);
+    stroke-dasharray: 0;
+    stroke-linejoin: miter;
+    stroke-width: 8px;
+  }
+
+  60% {
+    transform: scale(1.2);
+    fill: var(--fill);
+  }
+}
+
+#filtro {
+  width: 250px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  align-items: center;
+}
+
+#filtro:focus {
+  outline: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tabla-filtro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tabla-filtro #filtro {
+  margin: 300px;
+  margin-bottom: -50px;
+  margin-top: 50px;
+}
+
+
+@media screen and (max-width: 800px) {
+  .tabla-filtro {
+    overflow-x: scroll;
+  }
+}
+
+.tabla-mobile {
+  display: none;
+  width: 100%;
+}
+
+.tabla-mobile .fila .columnaTabla {
+  display: flex;
+}
+
+.tabla-mobile .fila .columnaTabla .header .contenido {
+  border: 1px solid #ccc;
+  border-bottom: none;
+  padding: 10px;
+}
+
+.tabla-mobile .fila .columnaTabla .header {
+  width: 40%;
+  font-weight: bold;
+}
+
+.contenedorCentro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
+@media(max-width: 1188px) {
+
+  .contenedorCentro .zigzag {
+    display: none;
+  }
+
+  .contenedorNosotros .zigzag {
+    display: none;
+  }
+
+  .tabla-mobile {
+    display: block;
+    width: 100%;
+  }
+
+  .contenedorNosotros .tabla-mobile {
+    margin-bottom: 60px;
+    margin-top: 60px;
+  }
+
+  .tabla-filtro #filtro {
+    margin: 0;
+    margin-bottom: 50px;
+  }
+
+  .tabla-mobile .fila {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+
+  .tabla-mobile .columnaTabla {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+  }
+
+  .tabla-mobile .header {
+    font-weight: bold;
+    width: 40%;
+  }
+
+  .tabla-mobile .contenido {
+    width: 60%;
+  }
+
+
+
+}
